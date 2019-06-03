@@ -18,7 +18,6 @@ class AddDmtxController {
             editedFileName = addDmtxService.generateQR(pdfFile)
         else
             decodedStrings = addDmtxService.readQR(pdfFile)
-
         redirect(action: 'goodbye', params: [editedFileName: editedFileName, decodedStrings: decodedStrings])
 
     }

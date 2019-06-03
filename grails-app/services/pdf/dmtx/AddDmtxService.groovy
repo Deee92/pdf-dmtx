@@ -39,6 +39,7 @@ class AddDmtxService {
     }
 
     String generateQR(CommonsMultipartFile file) {
+        def startTime = System.currentTimeMillis()
         println "PDF selected: ${file.getOriginalFilename()}"
         println "Content type: ${file.getContentType()}"
         println "Class: ${file.getClass()}"
@@ -65,10 +66,13 @@ class AddDmtxService {
         over.addImage(codeQrImage)
         stamper.close()
         reader.close()
+        def endTime = System.currentTimeMillis()
+        println("Time taken to generate QR: ${endTime - startTime}")
         editedFilename
     }
 
     String[] readQR(CommonsMultipartFile file) {
+        def startTime = System.currentTimeMillis()
         println "PDF selected: ${file.getOriginalFilename()}"
         println "Content type: ${file.getContentType()}"
         println "Class: ${file.getClass()}"
@@ -114,6 +118,8 @@ class AddDmtxService {
 
         println(decodedStrings.toArray())
         println "Extracted images: ${imagesFromFirstPage}"
+        def endTime = System.currentTimeMillis()
+        println("Time taken to read QR from PDF: ${endTime - startTime}")
         decodedStrings.toArray()
     }
 
@@ -132,6 +138,7 @@ class AddDmtxService {
     }
 
     def handleImage(CommonsMultipartFile imageFile) {
+        def startTime = System.currentTimeMillis()
         println "Image selected: ${imageFile.getOriginalFilename()}"
         println "Content type: ${imageFile.getContentType()}"
         println "Class: ${imageFile.getClass()}"
@@ -139,6 +146,8 @@ class AddDmtxService {
         copyFileToServer(imageFile)
 
         File imgFile = new File(imageFile.getOriginalFilename())
+        def endTime = System.currentTimeMillis()
+        println("Time taken to read QR from image: ${endTime - startTime}")
         decodeQR(imgFile)
     }
 }
